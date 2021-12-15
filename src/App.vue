@@ -1,28 +1,41 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <a-header />
+    <div class="body">
+      <router-view />
+    </div>
+    <a-footer />
+    <v-preloader v-if="loadingState"></v-preloader>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AHeader from '@/components/layouts/header'
+import AFooter from '@/components/layouts/footer'
+import VPreloader from '@/components/general/preloader'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  components: { AHeader, AFooter, VPreloader },
+  computed: {
+    ...mapGetters(['loadingState'])
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+@import 'assets/scss/reset.scss';
+
+.body {
+  min-height: calc(100vh - 160px);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  @media screen and (max-width: 1320px) {
+    margin: 0 20px;
+  }
 }
 </style>
